@@ -1,18 +1,23 @@
+import os
+
+from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
 from mysql.connector import Error
 from datetime import date, datetime
 
+load_dotenv()
+
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-me")
 
 def get_db_connection():
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="miranda7282004",
-            database="pharmacy_db"
+            host=os.environ.get("DB_HOST", "localhost"),
+            user=os.environ.get("DB_USER", "root"),
+            password=os.environ.get("DB_PASSWORD", ""),
+            database=os.environ.get("DB_NAME", "pharmacy_db")
         )
         if connection.is_connected():
             return connection
@@ -306,7 +311,7 @@ def purchase(username):
         med = cursor.fetchone()
 
         if not med:
-            flash()
+            flash("Medicine not found.", "error")
         elif quantity > med['quantity']:
             flash(f"Only {med['quantity']} of '{med['medicine_name']}' available.", "error")
         else:
