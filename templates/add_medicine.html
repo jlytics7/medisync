@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ 'Edit Medicine' if medicine else 'Add Medicine' }} | Medisync Pharmacy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='add_medicine.css') }}">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <i class='bx bxs-capsule logo-icon'></i>
+      <h2>Medisync</h2>
+    </div>
+    <ul class="menu">
+      <li><a href="{{ url_for('dashboard', username=username) }}"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+      <li><a href="{{ url_for('inventory', username=username) }}"><i class='bx bx-package'></i> Inventory</a></li>
+      <li><a href="{{ url_for('add_medicine', username=username) }}" class="active"><i class='bx bx-plus-medical'></i> Manage Medicine</a></li>
+      <li><a href="{{ url_for('purchase', username=username) }}"><i class='bx bx-cart-alt'></i> Purchase</a></li>
+      <li><a href="{{ url_for('purchase_history', username=username) }}"><i class='bx bx-history'></i> History</a></li>
+      <li class="logout"><a href="{{ url_for('login') }}"><i class='bx bx-log-out'></i> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <div class="header-left">
+        <h1>Medicine Management</h1>
+        <p class="subtitle">Add, Edit, or Delete medicines easily</p>
+      </div>
+      <div class="profile-section">
+        <i class='bx bxs-user-circle profile-icon'></i>
+        <div>
+          <h4>{{ username }}</h4>
+          <p>{{ role }} Access</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <div class="medicine-layout">
+      <div class="medicine-list">
+        <h3><i class='bx bx-list-ul'></i> Existing Medicines</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Qty</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if medicines %}
+                {% for med in medicines %}
+                <tr>
+                  <td>{{ med.medicine_name }}</td>
+                  <td>{{ med.category }}</td>
+                  <td>{{ med.quantity }}</td>
+                  <td class="actions">
+                    <a href="{{ url_for('add_medicine', username=username, medicine_id=med.id) }}" class="edit-btn"><i class='bx bx-edit'></i></a>
+                   <form action="{{ url_for('delete_medicine', username=username, medicine_id=med.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this medicine?');">
+                      <i class='bx bx-trash'></i>
+                    </button>
+                  </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              {% else %}
+                <tr><td colspan="4" style="text-align:center;">No medicines available.</td></tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Add/Edit Form -->
+      <div class="form-section">
+        <h3><i class='bx bx-capsule'></i> {{ 'Edit Medicine' if medicine else 'Add New Medicine' }}</h3>
+        <form method="POST" action="{{ url_for('add_medicine', username=username, medicine_id=medicine.id if medicine else None) }}">
+          <div class="form-group">
+            <label>Medicine Name *</label>
+            <input type="text" name="medicine_name" placeholder="e.g., Paracetamol" required
+                   value="{{ medicine.medicine_name if medicine else '' }}">
+          </div>
+
+          <div class="form-group">
+            <label>Category *</label>
+            <select name="category" required>
+              <option value="">Select category</option>
+              <option value="Cold and Flu" {% if medicine and medicine.category=='Cold and Flu' %}selected{% endif %}>Cold and Flu</option>
+              <option value="Pain Relief" {% if medicine and medicine.category=='Pain Relief' %}selected{% endif %}>Pain Relief</option>
+              <option value="Anti-inflammatory" {% if medicine and medicine.category=='Anti-inflammatory' %}selected{% endif %}>Anti-inflammatory</option>
+              <option value="Antibiotic" {% if medicine and medicine.category=='Antibiotic' %}selected{% endif %}>Antibiotic</option>
+              <option value="Vitamins" {% if medicine and medicine.category=='Vitamins' %}selected{% endif %}>Vitamins</option>
+              <option value="Others" {% if medicine and medicine.category=='Others' %}selected{% endif %}>Others</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (₱) *</label>
+              <input type="number" name="price" step="0.01" required value="{{ medicine.price if medicine else '' }}">
+            </div>
+            <div class="form-group">
+              <label>Quantity *</label>
+              <input type="number" name="quantity" required value="{{ medicine.quantity if medicine else '' }}">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Expiry Date *</label>
+            <input type="date" name="expiry_date" required value="{{ medicine.expiry_date if medicine else '' }}">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="save-btn">
+              <i class='bx bx-save'></i> {{ 'Update Medicine' if medicine else 'Save Medicine' }}
+            </button>
+            <a href="{{ url_for('inventory', username=username) }}" class="view-inv"><i class='bx bx-show'></i> View Inventory</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Medisync Pharmacy | All Rights Reserved. </p>
+    </footer>
+  </main>
+</body>
+</html>

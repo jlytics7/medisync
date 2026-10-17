@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Medisync Pharmacy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="project-header">
+      <i class='bx bxs-capsule logo-icon'></i>
+      <h2>Medisync Pharmacy System</h2>
+      <p>Staff Login</p>
+    </div>
+
+    <h1>Login</h1>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="input-box">
+        <select name="category" required>
+          <option value="" disabled selected>Select Category</option>
+          <option value="Pharmacist">Pharmacist</option>
+          <option value="Assistant">Pharmacist Assistant</option>
+        </select>
+        <i class='bx bx-category'></i>
+      </div>
+
+      <div class="input-box">
+        <input type="text" name="idnumber" placeholder="Enter ID Number" required>
+        <i class='bx bx-id-card'></i>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <div class="register-link">
+      <p>Don't have an account? <a href="{{ url_for('register') }}">Sign Up</a></p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+</body>
+</html>

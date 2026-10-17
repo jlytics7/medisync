@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  color: #2f3e46;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #1eae98;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  position: fixed;
+  height: 100vh;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.menu li {
+  margin-bottom: 1.2rem;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #eafaf1;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.menu li.logout {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 1rem;
+}
+
+.menu li.logout a {
+  background-color: #178a77;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu li.logout a:hover {
+  background-color: #0f6a5c;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px;
+  padding-bottom: 100px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-left h1 {
+  font-size: 1.8rem;
+  color: #1eae98;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 174, 152, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  color: #1eae98;
+}
+
+.profile-section h4 {
+  font-size: 1rem;
+  color: #1eae98;
+  font-weight: 600;
+}
+
+.profile-section p {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.form-section {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  width: calc(100% - 4rem); 
+  margin: 0 auto; 
+}
+
+.form-section h3 {
+  color: #1eae98;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+th {
+  background-color: #eafaf1;
+  color: #000000;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #e0f4f2;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.save-btn {
+  background-color: #1eae98;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-btn:hover {
+  background-color: #179f8b;
+}
+
+.view-inv {
+  text-decoration: none;
+  color: #1eae98;
+  font-weight: 600;
+}
+
+.view-inv:hover {
+  text-decoration: underline;
+}
+
+.search-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.search-form button {
+    padding: 8px 16px;
+    background-color: #179f8b; 
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #179f8b;
+}
+
+footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  color: #555;
+  position: fixed;
+  bottom: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  z-index: 100;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 200px;
+  }
+
+  footer {
+    left: 200px;
+    width: calc(100% - 200px);
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}

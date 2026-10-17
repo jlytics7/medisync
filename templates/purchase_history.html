@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase History | Medisync Pharmacy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='purchase_history.css') }}">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <i class='bx bxs-capsule logo-icon'></i>
+      <h2>Medisync</h2>
+    </div>
+    <ul class="menu">
+      <li><a href="{{ url_for('dashboard', username=username) }}"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+      <li><a href="{{ url_for('inventory', username=username) }}"><i class='bx bx-package'></i> Inventory</a></li>
+      <li><a href="{{ url_for('add_medicine', username=username) }}"><i class='bx bx-plus-medical'></i> Manage Medicine</a></li>
+      <li><a href="{{ url_for('purchase', username=username) }}"><i class='bx bx-cart-alt'></i> Purchase</a></li>
+      <li><a href="{{ url_for('purchase_history', username=username) }}" class="active"><i class='bx bx-history'></i> History</a></li>
+      <li class="logout">
+        <a href="{{ url_for('login') }}"><i class='bx bx-log-out'></i> Logout</a>
+      </li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div class="header-left">
+        <h1>Purchase History</h1>
+        <p class="subtitle">View all purchase records from your inventory</p>
+      </div>
+      <div class="profile-section">
+        <i class='bx bxs-user-circle profile-icon'></i>
+        <div>
+          <h4>{{ username }}</h4>
+          <p>{{ role }} Access</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Form -->
+<form method="GET" action="{{ url_for('purchase_history', username=username) }}" class="search-form">
+    <input type="text" name="search" placeholder="Search by medicine name..." value="{{ request.args.get('search', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+    <div class="form-container">
+      <div class="form-section">
+        <h3><i class='bx bx-history'></i> Purchase Records</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Date & Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in purchases %}
+              <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.medicine_name }}</td>
+                <td>{{ p.quantity }}</td>
+                <td>₱{{ "%.2f"|format(p.total_price) }}</td>
+                <td>{{ p.purchase_datetime }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Medisync Pharmacy | All Rights Reserved. </p>
+  </footer>
+</body>
+</html>

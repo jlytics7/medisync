@@ -1,0 +1,336 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  color: #2f3e46;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #1eae98;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.menu {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.menu li {
+  margin-bottom: 1.2rem;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #eafaf1;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.menu li.logout {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 1rem;
+}
+
+.menu li.logout a {
+  background-color: #178a77;
+  color: #fff;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu li.logout a:hover {
+  background-color: #0f6a5c;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; 
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-left h1 {
+  font-size: 1.8rem;
+  color: #1eae98;
+  font-weight: 700;
+}
+
+.header-subtitle {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.2rem;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 174, 152, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: -3px;
+}
+
+.profile-section .profile-icon {
+  font-size: 2rem;
+  color: #1eae98;
+}
+
+.profile-section h4 {
+  font-size: 1rem;
+  color: #1eae98;
+  font-weight: 600;
+}
+
+.profile-section p {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  font-size: 2rem;
+  color: #1eae98;
+}
+
+.card h3 {
+  font-size: 1rem;
+  color: #333;
+}
+
+.card p {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1eae98;
+}
+
+.warning .card-icon,
+.warning p {
+  color: #ffc107;
+}
+
+.danger .card-icon,
+.danger p {
+  color: #dc3545;
+}
+
+.expired .card-icon,
+.expired p {
+  color: #9c27b0;
+}
+
+.inventory-table {
+  background: #fff;
+  padding: 2rem; 
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  width: 100%;
+}
+
+.inventory-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  color: #000;
+}
+
+.inventory-table th {
+  background-color: #f1f9f8;
+  font-weight: 600;
+}
+
+.inventory-table tr:hover {
+  background-color: #e0f4f2;
+}
+
+.status-badge.expired {
+  background-color: #dc3535;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.status-badge.low {
+  background-color: #ffc107;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.status-badge.available {
+  background-color: #28a745;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-weight: 600;
+}
+.status-badge.purple {
+  background-color: #a855f7; 
+  color: white;
+  font-weight: 600;
+}
+
+.add-medicine-btn.edit-btn {
+  background-color: #1eae98;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.3s;
+}
+
+.add-medicine-btn.edit-btn:hover {
+  background-color: #179f8b;
+}
+.search-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-form input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.search-form button {
+    padding: 8px 16px;
+    background-color: #179f8b; 
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #179f8b;
+}
+
+footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 14px;
+  color: #555;
+  position: fixed;
+  bottom: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  z-index: 100;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 200px;
+    padding: 2rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-table table {
+    font-size: 0.85rem;
+  }
+
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

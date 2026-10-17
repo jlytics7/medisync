@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purchase | Medisync Pharmacy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='purchase.css') }}">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <i class='bx bxs-capsule logo-icon'></i>
+      <h2>Medisync</h2>
+    </div>
+    <ul class="menu">
+      <li><a href="{{ url_for('dashboard', username=username) }}"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+      <li><a href="{{ url_for('inventory', username=username) }}"><i class='bx bx-package'></i> Inventory</a></li>
+      <li><a href="{{ url_for('add_medicine', username=username) }}"><i class='bx bx-plus-medical'></i> Manage Medicine</a></li>
+      <li><a href="{{ url_for('purchase', username=username) }}" class="active"><i class='bx bx-cart-alt'></i> Purchase</a></li>
+      <li><a href="{{ url_for('purchase_history', username=username) }}"><i class='bx bx-history'></i> History</a></li>
+      <li class="logout">
+        <a href="{{ url_for('login') }}"><i class='bx bx-log-out'></i> Logout</a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="page-header">
+      <div class="header-left">
+        <h1>Purchase Medicine</h1>
+        <p class="subtitle">Record new purchases</p>
+      </div>
+      <div class="profile-section">
+        <i class='bx bxs-user-circle profile-icon'></i>
+        <div>
+          <h4>{{ username }}</h4>
+          <p>{{ role }} Access</p>
+
+        </div>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="form-container">
+      <div class="form-section">
+        <h3><i class='bx bx-cart-alt'></i> Purchase Form</h3>
+        <form method="POST" action="{{ url_for('purchase', username=username) }}">
+          <div class="form-group">
+            <label>Medicine *</label>
+            <select name="medicine_id" required>
+              <option value="" disabled selected>Select medicine</option>
+              {% for med in medicines %}
+              <option value="{{ med.id }}">{{ med.medicine_name }} (Stock: {{ med.quantity }})</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quantity (pcs) *</label>
+            <input type="number" name="quantity" min="1" required>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="save-btn"><i class='bx bx-save'></i> Add Purchase</button>
+            <a href="{{ url_for('purchase_history', username=username) }}" class="view-inv"><i class='bx bx-show'></i> View History</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Medisync Pharmacy | All Rights Reserved. </p>
+    </footer>
+  </main>
+</body>
+</html>

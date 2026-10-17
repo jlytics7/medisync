@@ -1,0 +1,185 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1eae98, #a3f7bf);
+}
+
+.wrapper {
+  width: 400px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 35px;
+  color: #1eae98;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.project-header {
+  margin-bottom: 25px;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+  color: #1eae98;
+  margin-bottom: 10px;
+}
+
+.project-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1eae98;
+  letter-spacing: 1px;
+}
+
+.project-header p {
+  color: #555;
+  font-size: 14px;
+}
+
+.wrapper h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 25px 0;
+}
+
+.input-box input,
+.input-box select {
+  width: 100%;
+  height: 100%;
+  background: #eafaf1;
+  border: 1px solid #b8e4d4;
+  border-radius: 40px;
+  outline: none;
+  font-size: 16px;
+  color: #1eae98;
+  padding: 0 45px 0 20px;
+  transition: 0.3s;
+}
+
+.input-box input::placeholder {
+  color: #6cc6b2;
+}
+
+.input-box select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.input-box select option {
+  color: #1eae98;
+}
+
+.input-box i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #1eae98;
+}
+
+.input-box input:focus,
+.input-box select:focus {
+  border-color: #1eae98;
+  box-shadow: 0 0 8px rgba(30, 174, 152, 0.3);
+}
+
+.btn {
+  width: 100%;
+  height: 45px;
+  background: #1eae98;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #179f8b;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #1eae98;
+}
+
+.register-link a {
+  color: #179f8b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.flash {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.flash.error {
+  background: #ffdddd;
+  color: #d9534f;
+}
+
+.flash.success {
+  background: #ddffdd;
+  color: #28a745;
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 90%;
+    padding: 30px 25px;
+  }
+
+  .wrapper h1 {
+    font-size: 26px;
+  }
+
+  .project-header h2 {
+    font-size: 18px;
+  }
+
+  .project-header p {
+    font-size: 12px;
+  }
+
+  .input-box input,
+  .input-box select {
+    font-size: 14px;
+  }
+
+  .btn {
+    font-size: 14px;
+    height: 40px;
+  }
+
+  .register-link {
+    font-size: 13px;
+  }
+}

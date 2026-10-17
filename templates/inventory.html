@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medisync Inventory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='inventory.css') }}">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <i class='bx bxs-capsule logo-icon'></i>
+      <h2>Medisync</h2>
+    </div>
+
+    <ul class="menu">
+      <li><a href="{{ url_for('dashboard', username=username) }}"><i class='bx bxs-dashboard'></i> Dashboard</a></li>
+      <li><a href="{{ url_for('inventory', username=username) }}" class="active"><i class='bx bx-package'></i> Inventory</a></li>
+      <li><a href="{{ url_for('add_medicine', username=username) }}"><i class='bx bx-plus-medical'></i> Manage Medicine</a></li>
+      <li><a href="{{ url_for('purchase', username=username) }}"><i class='bx bx-cart-alt'></i> Purchase</a></li>
+      <li><a href="{{ url_for('purchase_history', username=username) }}"><i class='bx bx-history'></i> History</a></li>
+      <li class="logout"><a href="{{ url_for('login') }}"><i class='bx bx-log-out'></i> Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="inventory-header">
+      <div class="header-left">
+        <h1>Inventory List</h1>
+        <p class="header-subtitle">Manage your medicine stock effectively</p>
+      </div>
+      <div class="profile-section">
+        <i class='bx bxs-user-circle profile-icon'></i>
+        <div>
+          <h4>{{ username }}</h4>
+          <p>{{ role }} Access</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Search Form -->
+<form method="GET" action="{{ url_for('inventory', username=username) }}" class="search-form">
+    <input type="text" name="search" placeholder="Search medicine..." value="{{ request.args.get('search', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+
+    <!-- Summary Cards -->
+    <section class="cards">
+      <div class="card">
+        <i class='bx bx-capsule card-icon'></i>
+        <div>
+          <h3>Total Medicines</h3>
+          <p>{{ total_meds }}</p>
+        </div>
+      </div>
+      <div class="card warning">
+        <i class='bx bx-low-vision card-icon'></i>
+        <div>
+          <h3>Low Stock</h3>
+          <p>{{ low_stock }}</p>
+        </div>
+      </div>
+      <div class="card danger">
+        <i class='bx bx-error card-icon'></i>
+        <div>
+          <h3>Out of Stock</h3>
+          <p>{{ out_of_stock }}</p>
+        </div>
+      </div>
+      <div class="card expired">
+        <i class='bx bx-time card-icon'></i>
+        <div>
+          <h3>Expired</h3>
+          <p>{{ expired_meds }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inventory Table -->
+    <section class="inventory-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Expiration</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for med in medicines %}
+          <tr>
+            <td>{{ med.medicine_name }}</td>
+            <td>{{ med.expiry_date }}</td>
+            <td>{{ med.category }}</td>
+            <td>{{ med.quantity }}</td>
+            <td>{{ med.price }}</td>
+            <td>
+              {% set statuses = [] %}
+              {% if med.expiry_date < current_date %}
+              {% set _ = statuses.append('Expired') %}
+              {% endif %}
+              {% if med.quantity == 0 %}
+              {% set _ = statuses.append('Out Stock') %}
+              {% elif med.quantity < 10 %}
+                {% set _ = statuses.append('Low Stock') %}
+                {% else %}
+                 {% if not statuses %}
+                  {% set _ = statuses.append('Available') %}
+                  {% endif %}
+                   {% endif %}
+                    {% for status in statuses %}
+                     {% if status == 'Expired' %}
+                      <span class="status-badge expired purple">{{ status }}</span>
+                      {% elif status == 'Low Stock' %}
+                      <span class="status-badge low">{{ status }}</span>
+                      {% elif status == 'Out Stock' %}
+                       <span class="status-badge expired">{{ status }}</span>
+                       {% else %}
+                        <span class="status-badge available">{{ status }}</span>
+                         {% endif %}
+                          {% endfor %}
+                        </td>
+
+
+            <td>
+              <a href="{{ url_for('add_medicine', medicine_id=med.id, username=username) }}" class="add-medicine-btn edit-btn">
+                <i class='bx bx-edit'></i> Edit
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2025 Medisync Pharmacy | All Rights Reserved. </p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
